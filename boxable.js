@@ -1,10 +1,8 @@
 //https://vega.github.io/vega/docs/expressions/
 //https://github.com/vega/vega/issues/17
-vega.expressionFunction('foo', function(coords) { 
-  if(coords==null) {
-    console.log("NULL STOP HIT")
-  }
+vega.expressionFunction('DEBUG', function(coords, msg) { 
   console.log(coords)
+  console.log(msg)
   return coords
 });
 
@@ -49,7 +47,7 @@ var obj = {
       "on": [
         {
           "events": "window:mouseup",
-          "update": "foo(box) || zoomto"
+          "update": "(box) || zoomto"
         }
       ]
     },
@@ -127,11 +125,11 @@ var obj = {
         },
         {
           "events": {"signal": "zoom"},
-          "update": "[anchor[0] + (xdom[0] - anchor[0]) * zoom, anchor[0] + (xdom[1] - anchor[0]) * zoom]"
+          "update": "DEBUG([anchor[0] + (xdom[0] - anchor[0]) * zoom, anchor[0] + (xdom[1] - anchor[0]) * zoom],'zoom')"
         },
         {
           "events": {"signal": "zoomto"},
-          "update": "[invert('xscale', min(down[0], zoomto[0])), invert('xscale', max(down[0], zoomto[0]))]"
+          "update": "DEBUG([invert('xscale', min(down[0], zoomto[0])), invert('xscale', max(down[0], zoomto[0]))],'zoomto')"
         }
       ]
     },
@@ -225,9 +223,9 @@ var obj = {
           "strokeDash": {"value": [3, 3]}
         },
         "update": {
-          "strokeOpacity": {"signal": "box ? 1 : 0"},
-          "x": {"signal": "(box) ? down[0] : 0"},
-          "y": {"signal": "(box) ? down[1] : 0"},
+          "strokeOpacity": {"signal": "box ? 0.3 : 0"},
+          "x": {"signal": "(box) ? down[0]: 0"},
+          "y": {"signal": "(box) ? down[1]: 0"},
           "x2": {"signal": "box ? box[0] : 0"},
           "y2": {"signal": "box ? box[1] : 0"}
         }
