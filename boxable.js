@@ -1,6 +1,9 @@
 //https://vega.github.io/vega/docs/expressions/
 //https://github.com/vega/vega/issues/17
 vega.expressionFunction('foo', function(coords) { 
+  if(coords==null) {
+    console.log("NULL STOP HIT")
+  }
   console.log(coords)
   return coords
 });
@@ -46,7 +49,7 @@ var obj = {
       "on": [
         {
           "events": "window:mouseup",
-          "update": "box || zoomto"
+          "update": "foo(box) || zoomto"
         }
       ]
     },
@@ -64,8 +67,7 @@ var obj = {
                 {"source": "window", "type": "mouseup"}]
             }
           ],
-          //TODO: Figure out what this means
-          "update": "down ? foo([x(), y()]) : null"
+          "update": "down ? [x(), y()] : null"
         },
         {
           "events": "window:mouseup",
@@ -117,7 +119,7 @@ var obj = {
       "on": [
         {
           "events": "dblclick",
-          "update": "foo(slice(xext))"
+          "update": "(slice(xext))"
         },
         {
           "events": {"signal": "delta"},
@@ -224,8 +226,8 @@ var obj = {
         },
         "update": {
           "strokeOpacity": {"signal": "box ? 1 : 0"},
-          "x": {"signal": "box ? down[0] : 0"},
-          "y": {"signal": "box ? down[1] : 0"},
+          "x": {"signal": "(box) ? down[0] : 0"},
+          "y": {"signal": "(box) ? down[1] : 0"},
           "x2": {"signal": "box ? box[0] : 0"},
           "y2": {"signal": "box ? box[1] : 0"}
         }
