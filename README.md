@@ -17,5 +17,5 @@ The data is found [here](https://gist.githubusercontent.com/neildeo05/1eaace0c48
 ## Quickstart
 
 ```console
-$ open boxable.html
+$ open index.html
 ```
