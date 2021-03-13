@@ -9,21 +9,18 @@ vega.expressionFunction('DEBUG', function(coords, msg) {
 
 vega.expressionFunction("Test", () => {
   console.log({
-		"$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-		"description": "Google's stock price over time.",
-		"data": {"url": "data/stocks.csv"},
-		"transform": [{"filter": "datum.symbol==='GOOG'"}],
-		"mark": "line",
-		"encoding": {
-			"x": {"field": "date", "type": "temporal"},
-			"y": {"field": "price", "type": "quantitative"}
-		}
-	})
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Google's stock price over time.",
+    "data": {"url": "data/stocks.csv"},
+    "transform": [{"filter": "datum.symbol==='GOOG'"}],
+    "mark": "line",
+    "encoding": {
+      "x": {"field": "date", "type": "temporal"},
+      "y": {"field": "price", "type": "quantitative"}
+    }
+  })
 })
 
-vega.expressionFunction("TRYING", (link) => { 
-  return link;
-})
 
 var obj = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
@@ -149,8 +146,7 @@ var obj = {
         {
           "events": {"signal": "zoomto"},
           //THIS IS WHERE THE XBOX CALLS ZOOMTO
-          //"update": "DEBUG([invert('xscale', min(down[0], zoomto[0])), invert('xscale', max(down[0], zoomto[0]))],'xzoomto')"
-          "update": "Test()"
+          "update": "DEBUG([invert('xscale', min(down[0], zoomto[0])), invert('xscale', max(down[0], zoomto[0]))],'xzoomto')"
         }
       ]
     },
@@ -188,7 +184,7 @@ var obj = {
       "format": {
         "type": "csv"
       },
-      "url": "http://127.0.0.1:8003/out.csv",
+      "url": "http://127.0.0.1:8003/compressed.csv",
       "transform": [
         { "type": "extent", "field": "Time", "signal": "xext" },
         { "type": "extent", "field": "Data", "signal": "yext" }
@@ -226,10 +222,6 @@ var obj = {
       "from": {"data": "points"},
       "clip": true,
       "encode": {
-        "enter": {
-          "fillOpacity": {"value": 1.0},
-          "fill": {"value": "steelblue"}
-        },
         "update": {
           "x": {"scale": "xscale", "field": "Time"},
           "y": {"scale": "yscale", "field": "Data"},
