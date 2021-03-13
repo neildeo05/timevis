@@ -21,6 +21,9 @@ vega.expressionFunction("Test", () => {
 	})
 })
 
+vega.expressionFunction("TRYING", (link) => { 
+  return link;
+})
 
 var obj = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
