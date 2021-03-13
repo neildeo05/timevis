@@ -10,12 +10,12 @@ def compress(a, f, step):
         if i != 0:
             t = a[accum:i]
             ret.append(min(t))
-            ret.append(f(t))
+            # ret.append(f(t))
             ret.append(max(t))
             accum+=step
     return ret
 
-vals = compress(dat.values[:,1].tolist(), statistics.mean, 10)
+vals = compress(dat.values[:,1].tolist(), statistics.mean, 1000)
 compressed_data = [list(a) for a in zip(range(len(vals)), vals)]
 df = pd.DataFrame(compressed_data, columns = ['Time', 'Data'])
 df.to_csv('../data/compressed.csv')

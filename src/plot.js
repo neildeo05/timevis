@@ -174,7 +174,7 @@ var obj = {
     },
     {
       "name": "size",
-      "update": "clamp(20 / span(xdom), 1, 1000)"
+      "update": "clamp(1000 / span(xdom), 1, 10000)"
     }
   ],
 
@@ -218,6 +218,7 @@ var obj = {
 
   "marks": [
     {
+      //line for line graph symbol for scatter plot
       "type": "line",
       "from": {"data": "points"},
       "clip": true,
@@ -234,10 +235,10 @@ var obj = {
       "encode": {
         "enter": {
           "stroke": {"value": "#888"},
-          "strokeDash": {"value": [3, 3]}
+          "strokeDash": {"value": [3, 3]},
         },
         "update": {
-          "strokeOpacity": {"signal": "box ? 0.3 : 0"},
+          "strokeOpacity": {"signal": "box ? 1.0 : 0"},
           "x": {"signal": "(box) ? down[0]: 0"},
           "y": {"signal": "(box) ? down[1]: 0"},
           "x2": {"signal": "box ? box[0] : 0"},
