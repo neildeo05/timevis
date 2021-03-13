@@ -11,11 +11,17 @@ Large (>10 million) dataset visualization using Vega and Altair
   - These scaling functions take a step and a function responsible for generating this data from a list/array
 
 ## Data
-The data is found [here](https://gist.githubusercontent.com/neildeo05/1eaace0c48138020d1d88f53dcc239a3/raw/451ec8de369c14108d7902f1c0f89ea8082cd1dc/lotsofdata.csv)
+The scaled down data is found [here](https://gist.githubusercontent.com/neildeo05/1eaace0c48138020d1d88f53dcc239a3/raw/451ec8de369c14108d7902f1c0f89ea8082cd1dc/lotsofdata.csv)
 
 
 ## Quickstart
 
-```console
-$ open index.html
-```
+to serve local data:
+  ```console
+  $ make -B http
+  ```
+
+
+## TODO
+ - [ ] Load full (29 million points) data
+ - [ ] Finish Scaling Functions
