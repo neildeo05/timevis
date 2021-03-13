@@ -1,10 +1,26 @@
 //https://vega.github.io/vega/docs/expressions/
 //https://github.com/vega/vega/issues/17
+
 vega.expressionFunction('DEBUG', function(coords, msg) { 
   console.log(coords)
   console.log(msg)
-  return coords
+  return coords;
 });
+
+vega.expressionFunction("Test", () => {
+  console.log({
+		"$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+		"description": "Google's stock price over time.",
+		"data": {"url": "data/stocks.csv"},
+		"transform": [{"filter": "datum.symbol==='GOOG'"}],
+		"mark": "line",
+		"encoding": {
+			"x": {"field": "date", "type": "temporal"},
+			"y": {"field": "price", "type": "quantitative"}
+		}
+	})
+})
+
 
 var obj = {
   "$schema": "https://vega.github.io/schema/vega/v5.json",
@@ -125,12 +141,13 @@ var obj = {
         },
         {
           "events": {"signal": "zoom"},
-          "update": "DEBUG([anchor[0] + (xdom[0] - anchor[0]) * zoom, anchor[0] + (xdom[1] - anchor[0]) * zoom],'zoom')"
+          "update": "[anchor[0] + (xdom[0] - anchor[0]) * zoom, anchor[0] + (xdom[1] - anchor[0]) * zoom]"
         },
         {
           "events": {"signal": "zoomto"},
-          //THIS IS WHERE THE BOX CALLS ZOOMTO
-          "update": "DEBUG([invert('xscale', min(down[0], zoomto[0])), invert('xscale', max(down[0], zoomto[0]))],'zoomto')"
+          //THIS IS WHERE THE XBOX CALLS ZOOMTO
+          //"update": "DEBUG([invert('xscale', min(down[0], zoomto[0])), invert('xscale', max(down[0], zoomto[0]))],'xzoomto')"
+          "update": "Test()"
         }
       ]
     },
@@ -151,7 +168,8 @@ var obj = {
         },
         {
           "events": {"signal": "zoomto"},
-          "update": "[invert('yscale', max(down[1], zoomto[1])), invert('yscale', min(down[1], zoomto[1]))]"
+          //THIS IS WHERE THE YBOX CALLS ZOOMTO
+          "update": "DEBUG([invert('yscale', max(down[1], zoomto[1])), invert('yscale', min(down[1], zoomto[1]))], 'yzoomto')"
         }
       ]
     },
