@@ -1,7 +1,6 @@
 import random
 from enum import Enum
 import math
-NUM_VALS = 300
 class Box_Type(Enum):
     LEFT=1
     RIGHT=2
@@ -99,24 +98,14 @@ def box(vals, box_size, box_type):
         disp = box_size//2
         return vals[size-disp-2:size+disp+2]
 def num_bars(length):
-    return int(math.log(len(data), 2)) - 1
+    return int(math.log(length, 2)) - 1
 
-def query_select_data(data, arg, msg):
+def query_select_data(data, msg):
    data = (Node.init_node_array(data))
    root = Hierarchy.build_hierarchy(data)
    dat = bar(root, int(msg))
-   return Node.decompress_node_array(dat, arg)
+   return dat
 
-   
-if __name__ == '__main__':
-  import numpy as np
-  import matplotlib.pyplot as plt
-  data = []
-  for i in range(NUM_VALS):
-      data.append((random.random() * NUM_VALS - 1) + 1)
-  print("There are " + str(num_bars(len(data))) + " bars to choose from")
-  msg = "The larger the bar is, the finer the resulting data is. For example, in a scenario where there are 5 bars, bar 5 would contain the most amount of data, and bar 0 would contain the least amount of data: "
-  print(query_select_data(data, Decompress_Arg.MAX, input(msg)))
-  print(query_select_data(data, Decompress_Arg.MIN, input(msg)))
-  print(query_select_data(data, Decompress_Arg.ALL, input(msg)))
+def filter_data(data, arg):
+    return Node.decompress_node_array(data, arg)
 
