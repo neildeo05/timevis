@@ -1,6 +1,7 @@
 import random
 from enum import Enum
 import math
+import numpy as np
 class Box_Type(Enum):
     LEFT=1
     RIGHT=2
@@ -19,7 +20,7 @@ class Node:
     def init_node_array(data):
         ret = []
         for i in range(0, len(data)-1, 2):
-            if (data[i] < data[i+1]):
+            if data[i] < data[i+1]:
                 ret.append(Node(data[i], data[i+1]))
             else:
                 ret.append(Node(data[i+1], data[i]))
@@ -31,24 +32,6 @@ class Node:
             tmp = [data[i].low, data[i].high, data[i+1].low, data[i+1].high]
             ret.append(Node(min(tmp), max(tmp)))
         return ret
-    @staticmethod
-    def decompress_node_array(data, Decomp_Arg):
-        if Decomp_Arg == Decompress_Arg.ALL:
-            vals = []
-            for c,i in enumerate(data):
-                vals.append([c+1, i.low])
-                vals.append([c+1, i.high])
-            return vals
-        elif Decomp_Arg == Decompress_Arg.MIN:
-            vals = []
-            for c,i in enumerate(data):
-                vals.append([c+1, i.low])
-            return vals
-        elif Decomp_Arg == Decompress_Arg.MAX:
-            vals = []
-            for c,i in enumerate(data):
-                vals.append([c+1, i.high])
-            return vals
 
         
     def __repr__(self):
@@ -78,6 +61,9 @@ class Hierarchy:
             print(tmp);
             print()
             tmp = tmp.next
+def num_bars(length):
+    return int(math.log(length, 2)) - 1
+
 def bar(root, barNumber):
     try:
         tmp = root
@@ -85,9 +71,9 @@ def bar(root, barNumber):
             tmp = tmp.next
         return tmp.layer
     except Exception as e:
-        import sys
-        print("ERROR: Quieried bar `%d` was too large for selected data. Please limit queries to the number of bars for the hierarchy" % barNumber)
-        sys.exit(1)
+        print("Bar number too high")
+        quit()
+        
 def box(vals, box_size, box_type):
     if box_type==Box_Type.LEFT:
         return vals[0:box_size]
@@ -97,15 +83,32 @@ def box(vals, box_size, box_type):
         size = len(vals)
         disp = box_size//2
         return vals[size-disp-2:size+disp+2]
-def num_bars(length):
-    return int(math.log(length, 2)) - 1
 
+def decompress_node_array(data, Decomp_Arg):
+    vals = []
+    if Decomp_Arg == Decompress_Arg.ALL:
+        for c,i in enumerate(data):
+            vals.append([c+1, i.low])
+            vals.append([c+1, i.high])
+        return (vals)
+    elif Decomp_Arg == Decompress_Arg.MIN:
+        for c,i in enumerate(data):
+            vals.append([c+1, i.low])
+        return (vals)
+    elif Decomp_Arg == Decompress_Arg.MAX:
+        for c,i in enumerate(data):
+            vals.append([c+1, i.high])
+        return (vals)
+
+# TODO Query select data is very slow, most likely initting the node array and building the hierarrchy is very time consuming...
+#      To fix -> optimize building hierarchy
 def query_select_data(data, msg):
-   data = (Node.init_node_array(data))
+   data = Node.init_node_array(data)
    root = Hierarchy.build_hierarchy(data)
    dat = bar(root, int(msg))
    return dat
 
+
 def filter_data(data, arg):
-    return Node.decompress_node_array(data, arg)
+    return decompress_node_array(data, arg)
 

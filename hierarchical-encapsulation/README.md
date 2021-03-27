@@ -10,9 +10,8 @@ Since there are no external dependencies, there are no requirements
 
 
 ## Refactoring / Updates
-- [ ] Port to numpy - always faster
-- [ ] Use numba jit/njit to speed up the process for very large values
-- [ ] Ditch pypy
+- [X] Port to numpy - always faster (in decompress functions)
+- [ ] Multithreading/Multiprocessing/Ray for utilizing more cores
 - [ ] Faster way to load data?
 - [ ] Add support for more frontends
   - [ ] Altair
