@@ -73,42 +73,44 @@ def bar(root, barNumber):
     except Exception as e:
         print("Bar number too high")
         quit()
-        
+
+
 def box(vals, box_size, box_type):
-    if box_type==Box_Type.LEFT:
+    if box_type == Box_Type.LEFT:
         return vals[0:box_size]
-    elif box_type==Box_Type.RIGHT:
+    elif box_type == Box_Type.RIGHT:
         return vals[-box_size:]
-    elif box_type==Box_Type.CENTER:
+    elif box_type == Box_Type.CENTER:
         size = len(vals)
         disp = box_size//2
         return vals[size-disp-2:size+disp+2]
 
+
 def decompress_node_array(data, Decomp_Arg):
-    vals = []
     if Decomp_Arg == Decompress_Arg.ALL:
-        for c,i in enumerate(data):
-            vals.append([c+1, i.low])
-            vals.append([c+1, i.high])
-        return (vals)
+        vals = np.zeros((len(data) * 2 + 1, 2))
+        for i in range(len(data) - 1):
+            vals[i] = [i, data[i].low]
+            vals[i+1] = [i, data[i].high]
+        return vals
     elif Decomp_Arg == Decompress_Arg.MIN:
-        for c,i in enumerate(data):
-            vals.append([c+1, i.low])
+        vals = np.zeros(len(data))
+        for i, c in enumerate(data):
+            vals[i] = c.low
         return (vals)
     elif Decomp_Arg == Decompress_Arg.MAX:
-        for c,i in enumerate(data):
-            vals.append([c+1, i.high])
+        vals = np.zeros(len(data))
+        for i, c in enumerate(data):
+            vals[i] = c.high
         return (vals)
 
-# TODO Query select data is very slow, most likely initting the node array and building the hierarrchy is very time consuming...
-#      To fix -> optimize building hierarchy
+
 def query_select_data(data, msg):
-   data = Node.init_node_array(data)
-   root = Hierarchy.build_hierarchy(data)
-   dat = bar(root, int(msg))
-   return dat
+    data = Node.init_node_array(data)
+    root = Hierarchy.build_hierarchy(data)
+    dat = bar(root, int(msg))
+    return dat
 
 
 def filter_data(data, arg):
     return decompress_node_array(data, arg)
-
