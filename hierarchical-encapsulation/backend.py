@@ -1,15 +1,21 @@
+import math
 import random
 from enum import Enum
-import math
+
 import numpy as np
+
+
 class Box_Type(Enum):
-    LEFT=1
-    RIGHT=2
-    CENTER=3
+    LEFT = 1
+    RIGHT = 2
+    CENTER = 3
+
+
 class Decompress_Arg(Enum):
-    MIN=1
-    MAX=2
-    ALL=3
+    MIN = 1
+    MAX = 2
+    ALL = 3
+
 
 class Node:
     def __init__(self, low, high):
@@ -25,6 +31,7 @@ class Node:
             else:
                 ret.append(Node(data[i+1], data[i]))
         return ret
+
     @staticmethod
     def node_array(data):
         ret = []
@@ -33,9 +40,10 @@ class Node:
             ret.append(Node(min(tmp), max(tmp)))
         return ret
 
-        
     def __repr__(self):
         return "Node(" + str(self.low) + " " + str(self.high) + ")"
+
+
 class Hierarchy:
     def __init__(self, layer, next):
         self.next = next
@@ -49,20 +57,25 @@ class Hierarchy:
         for i in range(combos):
             tmp.next = Hierarchy(Node.node_array(tmp.layer), None)
             tmp = tmp.next
-        return root 
+        return root
+
     def __repr__(self):
         for i in self.layer:
             print(i)
         return "" + str(len(self.layer))
+
     @staticmethod
     def print_h(root):
         tmp = root
         while(tmp):
-            print(tmp);
+            print(tmp)
             print()
             tmp = tmp.next
+
+
 def num_bars(length):
     return int(math.log(length, 2)) - 1
+
 
 def bar(root, barNumber):
     try:
