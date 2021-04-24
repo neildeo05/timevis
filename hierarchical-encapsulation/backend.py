@@ -125,5 +125,9 @@ def query_select_data(data, msg):
     return dat
 
 
-def filter_data(data, arg):
-    return decompress_node_array(data, arg)
+def query_select_range(data):
+    print(
+        f'There are (1 -> {len(data)}) timeticks. Please pick a range for your data ')
+    min = input('min value: ')
+    max = input('max value: ')
+    return min, max
