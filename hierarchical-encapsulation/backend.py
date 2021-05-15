@@ -101,11 +101,12 @@ def box(vals, box_size, box_type):
 
 def decompress_node_array(data, Decomp_Arg):
     if Decomp_Arg == Decompress_Arg.ALL:
-        vals = np.zeros((len(data) * 2 + 1, 2))
+        vals = []
         for i in range(len(data) - 1):
-            vals[i] = [i, data[i].low]
-            vals[i+1] = [i, data[i].high]
-        return vals
+            vals.append([i, data[i].low])
+            vals.append([i, data[i].high])
+
+        return np.array(vals)
     elif Decomp_Arg == Decompress_Arg.MIN:
         vals = np.zeros(len(data))
         for i, c in enumerate(data):
@@ -124,10 +125,32 @@ def query_select_data(data, msg):
     dat = bar(root, int(msg))
     return dat
 
+def closest_power(x):
+    val = math.log(x, 2)
+    if(val - int(val) > 0.5):
+        return math.ceil(val)
+    else:
+        return math.floor(val)
 
-def query_select_range(data):
-    print(
-        f'There are (1 -> {len(data)}) timeticks. Please pick a range for your data ')
-    min = input('min value: ')
-    max = input('max value: ')
-    return min, max
+def query_select_data_range(s, l, data, PAD_CONSTANT):
+    # 2 ^ 10 = 1024
+    # If we don't pad it, then we have to get the one below 1024, to fit in the 1024 box. Thus, we have to get the length of the data - 8 to get the 
+    # bar that has data closest to 2 ^ 9
+    if not PAD_CONSTANT:
+        rng = data[s:l]
+        cpy = rng
+        data = Node.init_node_array(rng)
+        root = Hierarchy.build_hierarchy(data)
+        dat = bar(root, num_bars(len(data)) -8)
+        return dat
+    else:
+        rng = data[s:l]
+        val = 2 ** (closest_power(len(rng)) + 1) if 2 ** closest_power(len(rng)) < len(rng) else 2 ** closest_power(len(rng))
+        val -= len(rng)
+        rng += [0] * val
+        data = Node.init_node_array(rng)
+        root = Hierarchy.build_hierarchy(data)
+        dat = bar(root, num_bars(len(data)) - 9)
+        print(len(dat))
+        return dat
+

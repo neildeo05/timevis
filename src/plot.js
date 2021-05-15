@@ -168,7 +168,7 @@ var obj = {
         {
           "events": {"signal": "zoomto"},
           //THIS IS WHERE THE YBOX CALLS ZOOMTO
-          "update": "DEBUG([invert('yscale', max(down[1], zoomto[1])), invert('yscale', min(down[1], zoomto[1]))], 'yzoomto')"
+          "update": "DEBUG([invert('yscale', max(down[1], zoomto[1])), invert('yscale', min(down[1], zoomto[1]))], '')"
         }
       ]
     },
@@ -184,7 +184,7 @@ var obj = {
       "format": {
         "type": "csv"
       },
-      "url": "http://127.0.0.1:8003/compressed.csv",
+      "url": "http://127.0.0.1:8003/small.csv",
       "transform": [
         { "type": "extent", "field": "Time", "signal": "xext" },
         { "type": "extent", "field": "Data", "signal": "yext" }

@@ -5,29 +5,26 @@ import numpy as np
 from scipy.stats import binom
 
 import backend
+import pandas as pd
 
-NUM_VALS = 20_000
+NUM_VALS = 29_000_000
+BOX_SIZE = 1024
 
 
 def graph_with_backend():
-    data = []
-    n, p = 10, 0.5
-    raw_data = binom.rvs(n, p, size=NUM_VALS)
-    print("There are " + str(backend.num_bars(len(raw_data))) +
-          " bars to choose from")
-    msg = "The bar number decides how much data is plotted. The lower the bar number is, the more data will be plotted. The top plot is the min data, and the bottom plot is the max data "
-    data = backend.query_select_data(raw_data, input(msg))
-    min_data = (backend.decompress_node_array(
-        data, backend.Decompress_Arg.MIN))
-    max_data = (backend.decompress_node_array(
-        data, backend.Decompress_Arg.MAX))
-    all_data = (backend.decompress_node_array(
-        data, backend.Decompress_Arg.ALL))
-    fig, axs = plt.subplots(3)
-    axs[0].plot(min_data)
-    axs[1].plot(max_data)
-    axs[2].plot(raw_data)
-    plt.show()
+    import streamlit as st
+
+    min_v = st.text_input('Minimum Value for Zoom')
+    max_v = st.text_input('Maximum Value for Zoom')
+    if min_v and max_v:
+        raw_data = list(range(0, NUM_VALS))
+        min_v = int(min_v)
+        max_v = int(max_v)
+        data = backend.query_select_data_range(min_v, max_v, raw_data, False)
+        all_data = (backend.decompress_node_array(
+            data, backend.Decompress_Arg.ALL))
+        df = pd.DataFrame({"data": all_data[:,1]})
+        st.line_chart(df)
 
 
 if __name__ == '__main__':
