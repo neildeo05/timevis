@@ -1,5 +1,5 @@
 frontend: frontend.py
-	python frontend.py
+	streamlit run frontend.py
 backend: backend.py
 	python backend.py
 
