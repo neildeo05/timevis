@@ -28,10 +28,8 @@ def write(root, levels):
 
 
 if __name__ == "__main__":
-    raw_data = read_csv("top100k.csv")
+    # raw_data = read_csv("data.csv")
+    raw_data = list(range(29_000_000))
     print(len(raw_data))
     root = build_tree(raw_data)
     write(*root)
-    # backend.Hierarchy.print_h(root[0])
-
-    # write()

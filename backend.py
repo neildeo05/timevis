@@ -146,7 +146,6 @@ def query_select_data_range(s, l, data, PAD_CONSTANT):
     # bar that has data closest to 2 ^ 9
     if not PAD_CONSTANT:
         rng = data[s:l]
-        cpy = rng
         data = Node.init_node_array(rng)
         root = Hierarchy.build_hierarchy(data)
         dat = bar(root, num_bars(len(data)) -8)

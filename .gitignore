@@ -140,3 +140,5 @@ scripts/
 src/
 ROADMAP.md
 hierarchical-encapsulation/
+foo.py
+data/
