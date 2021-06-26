@@ -40,14 +40,14 @@ def graph_with_backend():
         data = backend.query_select_data_range(min_v, max_v, raw_data, False)
         # data_1 = backend.query_select_data_range(min_v, max_v, raw_data_1, False)
         # data_2 = backend.query_select_data_range(min_v, max_v, raw_data_2, False)
-        all_data = (backend.decompress_node_array(
-            data, backend.Decompress_Arg.ALL))
+        # all_data = (backend.decompress_node_array(
+            # data, backend.Decompress_Arg.ALL))
         # all_data_1 = (backend.decompress_node_array(
             # data_1, backend.Decompress_Arg.ALL))
         # all_data_2 = (backend.decompress_node_array(
             # data_2, backend.Decompress_Arg.ALL))
-        df = pd.DataFrame({"data": all_data[:,1]})#, "data2": all_data_1[:,1],"data3": all_data_2[:,1]})
-        st.line_chart(df)
+        # df = pd.DataFrame({"data": all_data[:,1]})#, "data2": all_data_1[:,1],"data3": all_data_2[:,1]})
+        # st.line_chart(df)
 
 
 if __name__ == '__main__':

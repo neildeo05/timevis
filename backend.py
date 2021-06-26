@@ -119,11 +119,19 @@ def decompress_node_array(data, Decomp_Arg):
         return (vals)
 
 
-def query_select_data(data, msg):
+def convert_node_array_to_list(data, Decomp_Arg):
+    vals = []
+    for i in range(len(data)):
+        vals.append(data[i].low)
+        vals.append(data[i].high)
+
+    return vals
+
+def query_select_data(data):
     data = Node.init_node_array(data)
     root = Hierarchy.build_hierarchy(data)
-    dat = bar(root, int(msg))
-    return dat
+    # dat = bar(root, int(msg))
+    return root, num_bars(len(data))
 
 def closest_power(x):
     val = math.log(x, 2)
