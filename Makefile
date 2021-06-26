@@ -1,4 +1,4 @@
-frontend: frontend.py
+frontend: main.py
 	streamlit run main.py
 
 prp: preprocess.py
