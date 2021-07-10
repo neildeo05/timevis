@@ -10,7 +10,7 @@ def read_csv(filename):
         # The csv_reader is iterable, so list(csv_reader) turns the data of the file into a list and returns it.
         # In order to return a list of ints, the items in the list have to be converted to ints, so map(int, list) does that
         # return list(map(int, list(csv_reader)))
-        return list(csv_reader)
+        return list(map(lambda x: int(x[0]), list(csv_reader)))
 
 def build_tree(data):
     # This function converts the raw_data (of type list) into a hierarchy (tree/graph)
@@ -28,8 +28,9 @@ def write(root, levels):
 
 
 if __name__ == "__main__":
-    # raw_data = read_csv("data.csv")
-    raw_data = list(range(29_000_000))
+    raw_data = read_csv("rats.csv")
+    # raw_data = list(range(29_000_000))
     print(len(raw_data))
+    print(raw_data[0])
     root = build_tree(raw_data)
     write(*root)

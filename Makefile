@@ -1,5 +1,5 @@
-frontend: frontend.py
-	streamlit run main.py
+frontend: main.py
+	streamlit run main.py 21339392
 
 prp: preprocess.py
 	python preprocess.py
