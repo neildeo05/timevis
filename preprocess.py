@@ -23,7 +23,7 @@ def write(root, levels):
     for i in range(levels+2):
         with open(basename % i, 'w') as csv_file:
             csv_writer = csv.writer(csv_file, delimiter = ',')
-            csv_writer.writerow(backend.convert_node_array_to_list(tmp.layer,backend.Decompress_Arg.ALL))
+            csv_writer.writerows(backend.convert_node_array_to_list(tmp.layer,backend.Decompress_Arg.ALL))
         tmp = tmp.next
 
 
