@@ -47,15 +47,17 @@ def get_no_compress_idx(a, value, center_orig):
                 count+=1
         return -1
 # TODO: Make this algorithm more efficient
-def center_radius(l):
-
+def center_radius(l, center_param=None, rad_param=None):
     a = query_range(0, l)
-    center_orig = int(st.slider("Center", 0, len(a[0]), 0))
-    radius_orig = int(st.slider("Radius", 0, center_orig + 1, 0))
-    if (radius_orig == 0):
+    if(rad_param == 0):
         df = pd.DataFrame({"data": a[0]})
         st.line_chart(df)
+    elif(not rad_param and not center_param):
+        center_orig = int(st.slider("Center", 0, len(a[0]), 0))
+        radius_orig = int(st.slider("Radius", 0, center_orig + 1, 0))
     else:
+        center_orig = center_param
+        radius_orig = rad_param
         value = int(a[0][center_orig])
         print(value)
         idx = get_no_compress_idx(a, value, center_orig)
@@ -63,24 +65,47 @@ def center_radius(l):
         high = idx + radius_orig
         b = (query_range(low, high))
         df = pd.DataFrame({"data": b[0]})
+        print(low, high)
         st.line_chart(df)
 
+def read_anomalous_points(filepath):
+    with open(filepath, "r") as f:
+        reader = csv.reader(f, delimiter="\n")
+        vals = []
+        for i in reader:
+            vals.append(int(i[0]))
+        return vals
 
 def main():
-    l = 21339392
-    center_rad = st.checkbox("Display Center/Radius")
-    if center_rad:
-        center_radius(l)
-    else:
+    l = int(sys.argv[1]);
+    # center_rad = st.checkbox("Display Center/Radius")
+    options = ["Display Range", "Display Center/Radius", "Display Anomalous Points"]
+    radio_group = st.radio("Graph Modes", options);
+    current_option = options.index(radio_group)
+    if current_option == 0:
         minv = int(st.slider("Minimum Value for Zoom", 0,l,0))
         maxv = int(st.slider("Maximum Value for Zoom", g_max_value, l, l))
         a = query_range(minv, maxv)
         st.subheader(("Current compression level: %d" % a[1]))
         df = pd.DataFrame({"data": a[0]})
         st.line_chart(df)
+    elif current_option == 1:
+        center_radius(l)
+    else:
+        points = read_anomalous_points("anomalous_points.csv")
+        tmp = ["x = " + str(i) for i in points]
+        tmp.append("Reset")
+        sub_radio_group = st.radio("Anomalous Points", tmp)
+        if sub_radio_group == "Reset":
+            center_radius(l, rad_param=0)
+        else:
+            val = (tmp.index(sub_radio_group))
+            center_radius(l, center_param=points[val], rad_param=5)
+        
 
 
 if __name__ == "__main__":
+    # read_anomalous_points("anomalous_points.csv")
     main()
 
 # 252 - 366
