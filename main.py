@@ -55,17 +55,26 @@ def center_radius(l, center_param=None, rad_param=None):
     elif(not rad_param and not center_param):
         center_orig = int(st.slider("Center", 0, len(a[0]), 0))
         radius_orig = int(st.slider("Radius", 0, center_orig + 1, 0))
+        if(radius_orig == 0):
+            df = pd.DataFrame({"data": a[0]})
+            st.line_chart(df)
+        else:
+            value = int(a[0][center_orig])
+            idx = get_no_compress_idx(a, value, center_orig)
+            low = idx - radius_orig
+            high = idx + radius_orig
+            b = (query_range(low, high))
+            df = pd.DataFrame({"data": b[0]})
+            st.line_chart(df)
     else:
         center_orig = center_param
         radius_orig = rad_param
         value = int(a[0][center_orig])
-        print(value)
         idx = get_no_compress_idx(a, value, center_orig)
         low = idx - radius_orig
         high = idx + radius_orig
         b = (query_range(low, high))
         df = pd.DataFrame({"data": b[0]})
-        print(low, high)
         st.line_chart(df)
 
 def read_anomalous_points(filepath):
