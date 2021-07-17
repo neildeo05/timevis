@@ -47,7 +47,7 @@ def get_no_compress_idx(a, value, center_orig):
                 count+=1
         return -1
 # TODO: Make this algorithm more efficient
-def center_radius(l, center_param=None, rad_param=None):
+def center_radius(l, center_param=None, rad_param=None, idx=None):
     a = query_range(0, l)
     if(rad_param == 0):
         df = pd.DataFrame({"data": a[0]})
@@ -67,22 +67,31 @@ def center_radius(l, center_param=None, rad_param=None):
             df = pd.DataFrame({"data": b[0]})
             st.line_chart(df)
     else:
-        center_orig = center_param
-        radius_orig = rad_param
-        value = int(a[0][center_orig])
-        idx = get_no_compress_idx(a, value, center_orig)
-        low = idx - radius_orig
-        high = idx + radius_orig
-        b = (query_range(low, high))
-        df = pd.DataFrame({"data": b[0]})
-        st.line_chart(df)
+        if idx:
+            # print("in here", idx)
+            radius_orig = rad_param
+            low = idx - radius_orig
+            high = idx + radius_orig
+            b = (query_range(low, high))
+            df = pd.DataFrame({"data": b[0]})
+            st.line_chart(df)
+        else:
+            center_orig = center_param
+            radius_orig = rad_param
+            value = int(a[0][center_orig])
+            idx = get_no_compress_idx(a, value, center_orig)
+            low = idx - radius_orig
+            high = idx + radius_orig
+            b = (query_range(low, high))
+            df = pd.DataFrame({"data": b[0]})
+            st.line_chart(df)
 
 def read_anomalous_points(filepath):
     with open(filepath, "r") as f:
         reader = csv.reader(f, delimiter="\n")
         vals = []
         for i in reader:
-            vals.append(int(i[0]))
+            vals.append((list(map(int, i[0].split(',')))))
         return vals
 
 def main():
@@ -102,14 +111,15 @@ def main():
         center_radius(l)
     else:
         points = read_anomalous_points("anomalous_points.csv")
-        tmp = ["x = " + str(i) for i in points]
+        print(points)
+        tmp = ["x = " + str(i[0]) for i in points]
         tmp.append("Reset")
         sub_radio_group = st.radio("Anomalous Points", tmp)
         if sub_radio_group == "Reset":
             center_radius(l, rad_param=0)
         else:
             val = (tmp.index(sub_radio_group))
-            center_radius(l, center_param=points[val], rad_param=5)
+            center_radius(l, center_param=1, rad_param=5, idx=points[val][1])
         
 
 
