@@ -1,7 +1,8 @@
 frontend: main.py
 	streamlit run main.py 21339392
+
 preprocess: preprocess.py
-	python preprocess.py
+	python preprocess.py data.csv
 
 backend: backend.py
 	python backend.py

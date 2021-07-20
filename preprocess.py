@@ -28,7 +28,8 @@ def write(root, levels):
 
 
 if __name__ == "__main__":
-    raw_data = read_csv("rats.csv")
+    import sys
+    raw_data = read_csv(sys.argv[1])
     # raw_data = list(range(29_000_000))
     print(len(raw_data))
     print(raw_data[0])

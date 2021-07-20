@@ -83,6 +83,7 @@ def center_radius(l, center_param=None, rad_param=None, idx=None):
             low = idx - radius_orig
             high = idx + radius_orig
             b = (query_range(low, high))
+            st.subheader(("Current compression level: %d" % b[1]))
             df = pd.DataFrame({"data": b[0]})
             st.line_chart(df)
 
@@ -119,7 +120,7 @@ def main():
             center_radius(l, rad_param=0)
         else:
             val = (tmp.index(sub_radio_group))
-            center_radius(l, center_param=1, rad_param=5, idx=points[val][1])
+            center_radius(l, center_param=1, rad_param=1024, idx=points[val][1])
         
 
 
