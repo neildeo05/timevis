@@ -14,7 +14,7 @@ $ make frontend
 
 `make preprocess` creates a tree and writes the contents of that tree to files in the `data/` directory
 
-`make frontend` runs streamlit on `mainx.py`
+`make frontend` runs streamlit on `main.py`
 
 
 ## Project Goals
