@@ -24,8 +24,9 @@ Right now, the tool can compress the large timeseries into multiple levels, usin
 
 ## Quickstart
 When you first downlaod the repository: 
-- Rename the csv file you want to read from to "data.csv"
+- Rename the csv file you want to read from to "data.csv", or download a file from google drive using `download.py`
 ```console
+$ python donwload.py <URL>
 $ make install
 $ make preprocess
 $ make frontend
