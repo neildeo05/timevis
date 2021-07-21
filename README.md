@@ -38,10 +38,16 @@ Right now, the tool can compress the large timeseries into multiple levels, usin
 3. If you switch to the anomalous points graph mode, you will see specific points that were designated as anomalous, and you can focus on those points. In order to generate anomalous points, run `detect.py`, and a file called `anomalous_points.csv` will be created, which contains all of the anomalous points.
 
 ## TODO
+ - [ ] Finish Developer Documentation
  - [ ] Separate the graph into min/max/all
  - [ ] Implement isolation forests to detect anomalous points
  - [ ] Add support for graphing multiple timeseries at the same time
  - [ ] Preprocess the anomalous points, and allow for a dynamic radius
+ - [ ] Run the tool on a few real datasets and capture output images for each level, for a few center/radius combinations, and for anomalous points. Add these images to a document per dataset that highlights interpretations of the dataset
+ - [ ] Pick a few interesting images from the task above and add to `README.md` 
+ - [ ] Switch from streamlit to HTML5 canvas
+ - [ ] Based on available memory on the machine, recommend the best value for `g_max_value`. `g_max_value` is used to define the maximum amount of points graphed, which determines the level to be picked. Add this part to the developer/user documentation
+ - [ ] Add a simple performance and memory usage profiling script that can be run for quick diagnostics
 
 ## Developer Documentation
 There are five source files: `backend.py`, `preprocess.py`, `main.py`, `detect.py`, and `synthetic_download.py`
