@@ -1,6 +1,15 @@
 import csv
 import backend
 import os
+from confparser import parse
+import sys
+arg = parse('COMPRESS_MODE')
+if arg == 'all':
+    arg = backend.Decompress_Arg.ALL
+elif arg == 'min':
+    arg = backend.Decompress_Arg.MIN
+else:
+    arg = backend.Decompress_Arg.MAX
 
 def read_csv(filename):
     # Open file as IO object
@@ -23,15 +32,12 @@ def write(root, levels):
     for i in range(levels+2):
         with open(basename % i, 'w') as csv_file:
             csv_writer = csv.writer(csv_file, delimiter = ',')
-            csv_writer.writerows(backend.convert_node_array_to_list(tmp.layer,backend.Decompress_Arg.ALL))
+            csv_writer.writerows(backend.convert_node_array_to_list(tmp.layer,arg))
         tmp = tmp.next
 
 
 if __name__ == "__main__":
-    import sys
-    raw_data = read_csv(sys.argv[1])
-    # raw_data = list(range(29_000_000))
-    print(len(raw_data))
-    print(raw_data[0])
+    filename = "../" + parse("SOURCE_DIR") + "/" + parse("SOURCE_FILE")
+    raw_data = read_csv(filename)
     root = build_tree(raw_data)
     write(*root)

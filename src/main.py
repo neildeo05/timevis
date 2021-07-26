@@ -4,9 +4,8 @@ import pandas as pd
 import os
 import streamlit as st
 import sys
-#TODO: Try to use functoools' lru_cache for memoization
-
-g_max_value = 2000
+from confparser import parse
+g_max_value = int(parse('GRAPH_MAX_VALUE'))
 
 def find_level(l, h):
     global g_max_value
@@ -22,7 +21,7 @@ def find_level(l, h):
 def query_range(l, h):
     level, low, high = find_level(l, h)
     tmp = []
-    with open("./data/level_%02d.csv" % level, 'r') as r:
+    with open("../data/level_%02d.csv" % level, 'r') as r:
         reader = csv.reader(r, delimiter=',')
         for i, line in enumerate(reader):
             if i < low:
@@ -35,7 +34,7 @@ def query_range(l, h):
 
 def get_no_compress_idx(a, value, center_orig):
     pos = [i for i, val in enumerate(a[0]) if val == value].index(center_orig) + 1
-    with open("./data/level_00.csv", 'r') as r:
+    with open("../data/level_00.csv", 'r') as r:
         reader = csv.reader(r, delimiter=',')
         count = 0
         center = 0
@@ -68,7 +67,6 @@ def center_radius(l, center_param=None, rad_param=None, idx=None):
             st.line_chart(df)
     else:
         if idx:
-            # print("in here", idx)
             radius_orig = rad_param
             low = idx - radius_orig
             high = idx + radius_orig
@@ -97,7 +95,6 @@ def read_anomalous_points(filepath):
 
 def main():
     l = int(sys.argv[1]);
-    # center_rad = st.checkbox("Display Center/Radius")
     options = ["Display Range", "Display Center/Radius", "Display Anomalous Points"]
     radio_group = st.radio("Graph Modes", options);
     current_option = options.index(radio_group)
@@ -111,8 +108,7 @@ def main():
     elif current_option == 1:
         center_radius(l)
     else:
-        points = read_anomalous_points("anomalous_points.csv")
-        print(points)
+        points = read_anomalous_points("../" + parse("SOURCE_DIR") + "/anomalous_points.csv")
         tmp = ["x = " + str(i[0]) for i in points]
         tmp.append("Reset")
         sub_radio_group = st.radio("Anomalous Points", tmp)
@@ -120,12 +116,10 @@ def main():
             center_radius(l, rad_param=0)
         else:
             val = (tmp.index(sub_radio_group))
-            center_radius(l, center_param=1, rad_param=1024, idx=points[val][1])
+            center_radius(l, center_param=1, rad_param=int(parse("DEFAULT_RADIUS")), idx=points[val][1])
         
 
 
 if __name__ == "__main__":
-    # read_anomalous_points("anomalous_points.csv")
     main()
 
-# 252 - 366

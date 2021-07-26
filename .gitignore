@@ -134,14 +134,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-notebooks/
 data/
-scripts/
-src/
-ROADMAP.md
-hierarchical-encapsulation/
-foo.py
-data/
-data.csv
-frontend.py
-rats.csv
+source_datafiles/rats.csv

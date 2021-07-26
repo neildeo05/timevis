@@ -2,20 +2,34 @@
 A visualization tool that allows users to view large timeseries (1-100 million timeticks)
 
 ## Quickstart
-When you first downlaod the repository: 
-- Rename the csv file you want to read from to "data.csv", or use synthetic data by running`download.py`
+When you first download the repository: 
+
+- If you have a source datafile that you want to use, update `vars.conf` such that SOURCE\_DIR and SOURCE\_FILE point to the folder and source csv file
+
+- If you want to use synthetic data, then run
+
+    ```console
+	    $ ./build.sh generate
+	```
+- When you want to run the tool for the first time, run this command:
+
+    ```console
+        $ ./build.sh all
+    ```
+	
+`install` installs all necessary packages from PyPI
+
+`preprocess` creates a tree and writes the contents of that tree to files in the `data/` directory
+
+`detect` runs the anomaly detection tool
+
+`frontend` runs streamlit on `main.py`
+
+- After you have completed all of the preprocessing steps, running the frontend tool is as simple as 
+
 ```console
-$ python synthetic_donwload.py
-$ make install
-$ make preprocess
-$ make frontend
+$ ./build.sh frontend
 ```
-`make install` installs all necessary packages from PyPI
-
-`make preprocess` creates a tree and writes the contents of that tree to files in the `data/` directory
-
-`make frontend` runs streamlit on `main.py`
-
 
 ## Project Goals
 - Visualize arbitrary length timeseries
@@ -38,18 +52,21 @@ Right now, the tool can compress the large timeseries into multiple levels, usin
 3. If you switch to the anomalous points graph mode, you will see specific points that were designated as anomalous, and you can focus on those points. In order to generate anomalous points, run `detect.py`, and a file called `anomalous_points.csv` will be created, which contains all of the anomalous points.
 
 ## TODO
- - [ ] Finish Developer Documentation
- - [ ] Separate the graph into min/max/all
- - [ ] Implement isolation forests to detect anomalous points
- - [ ] Add support for graphing multiple timeseries at the same time
- - [ ] Preprocess the anomalous points, and allow for a dynamic radius
+## Necessary
+ - [X] Update vars.conf to include anomalous points radius
+ - [X] Update build.sh to include flags for preprocessing and frontend
+ - [X] Update README.md file
+ - [X] Separate the graph into min/max/all
+ - [X] Implement isolation forests to detect anomalous points
+ - [X] Preprocess the anomalous points, and allow for a dynamic radius
  - [ ] Run the tool on a few real datasets and capture output images for each level, for a few center/radius combinations, and for anomalous points. Add these images to a document per dataset that highlights interpretations of the dataset
  - [ ] Pick a few interesting images from the task above and add to `README.md` 
- - [ ] Switch from streamlit to HTML5 canvas
+ - [ ] Find a way to use real timetick values on x axis in center/radius mode
  - [ ] Based on available memory on the machine, recommend the best value for `g_max_value`. `g_max_value` is used to define the maximum amount of points graphed, which determines the level to be picked. Add this part to the developer/user documentation
  - [ ] Add a simple performance and memory usage profiling script that can be run for quick diagnostics
-
-## Developer Documentation
-There are five source files: `backend.py`, `preprocess.py`, `main.py`, `detect.py`, and `synthetic_download.py`
-
+ - [ ] Add Developer Documentation
+ - [ ] Use os.path instead of hardcoding a path separator, to make the tool cross-platform
+## Nice to implement
+ - [ ] Add support for graphing multiple timeseries at the same time
+ - [ ] Switch from streamlit to HTML5 canvas
 
