@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/neildeo05/timevis/master/thumbnails/thumbnail_02.png">
+  <img src="https://raw.githubusercontent.com/neildeo05/timevis/master/thumbnails/thumbnail_00.png">
 </p>
 
 --------------------------------------------------------------------
@@ -65,11 +65,11 @@ Right now, the tool can compress the large timeseries into multiple levels, usin
  - [X] Separate the graph into min/max/all
  - [X] Implement isolation forests to detect anomalous points
  - [X] Preprocess the anomalous points, and allow for a dynamic radius
- - [ ] Pick a few interesting images from the task above and add to `README.md` 
+ - [X] Pick a few interesting images from the task above and add to `README.md` 
  - [ ] Find a way to use real timetick values on x axis in center/radius mode
- - [ ] Run the tool on a few real datasets and capture output images for each level, for a few center/radius combinations, and for anomalous points. Add these images to a document per dataset that highlights interpretations of the dataset
- - [ ] Based on available memory on the machine, recommend the best value for `g_max_value`. `g_max_value` is used to define the maximum amount of points graphed, which determines the level to be picked. Add this part to the developer/user documentation
  - [ ] Add a simple performance and memory usage profiling script that can be run for quick diagnostics
+ - [ ] Based on available memory on the machine, recommend the best value for `g_max_value`. `g_max_value` is used to define the maximum amount of points graphed, which determines the level to be picked. Add this part to the developer/user documentation
+ - [ ] Run the tool on a few real datasets and capture output images for each level, for a few center/radius combinations, and for anomalous points. Add these images to a document per dataset that highlights interpretations of the dataset
  - [ ] Add Developer Documentation
  - [ ] Use os.path instead of hardcoding a path separator, to make the tool cross-platform
 ## Nice to implement

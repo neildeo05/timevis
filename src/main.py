@@ -58,20 +58,26 @@ def center_radius(l, center_param=None, rad_param=None, idx=None):
             df = pd.DataFrame({"data": a[0]})
             st.line_chart(df)
         else:
+# Center radius mode
             value = int(a[0][center_orig])
             idx = get_no_compress_idx(a, value, center_orig)
             low = idx - radius_orig
             high = idx + radius_orig
             b = (query_range(low, high))
-            df = pd.DataFrame({"data": b[0]})
+            st.subheader(("Current compression level: %d" % b[1]))
+            timeticks = range(center_orig - radius_orig, center_orig + radius_orig + 1)
+            print(len(timeticks), len(b[0]))
+            df = pd.DataFrame({"x": timeticks, "y": b[0]}, columns = ['x', 'y']).set_index('x')
             st.line_chart(df)
     else:
         if idx:
+# Anomalous points mode
             radius_orig = rad_param
             low = idx - radius_orig
             high = idx + radius_orig
             b = (query_range(low, high))
-            df = pd.DataFrame({"data": b[0]})
+            timeticks = range(idx - radius_orig, idx + radius_orig + 1)
+            df = pd.DataFrame({"x": timeticks, "y": b[0]}, columns = ['x', 'y']).set_index('x')
             st.line_chart(df)
         else:
             center_orig = center_param
@@ -109,7 +115,7 @@ def main():
         center_radius(l)
     else:
         points = read_anomalous_points("../" + parse("SOURCE_DIR") + "/anomalous_points.csv")
-        tmp = ["x = " + str(i[0]) for i in points]
+        tmp = ["y = " + str(i[0]) for i in points]
         tmp.append("Reset")
         sub_radio_group = st.radio("Anomalous Points", tmp)
         if sub_radio_group == "Reset":
