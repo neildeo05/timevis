@@ -59,9 +59,9 @@ Right now, the tool can compress the large timeseries into multiple levels, usin
  - [X] Separate the graph into min/max/all
  - [X] Implement isolation forests to detect anomalous points
  - [X] Preprocess the anomalous points, and allow for a dynamic radius
- - [ ] Run the tool on a few real datasets and capture output images for each level, for a few center/radius combinations, and for anomalous points. Add these images to a document per dataset that highlights interpretations of the dataset
  - [ ] Pick a few interesting images from the task above and add to `README.md` 
  - [ ] Find a way to use real timetick values on x axis in center/radius mode
+ - [ ] Run the tool on a few real datasets and capture output images for each level, for a few center/radius combinations, and for anomalous points. Add these images to a document per dataset that highlights interpretations of the dataset
  - [ ] Based on available memory on the machine, recommend the best value for `g_max_value`. `g_max_value` is used to define the maximum amount of points graphed, which determines the level to be picked. Add this part to the developer/user documentation
  - [ ] Add a simple performance and memory usage profiling script that can be run for quick diagnostics
  - [ ] Add Developer Documentation
