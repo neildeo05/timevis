@@ -1,3 +1,9 @@
+<p align="center">
+  <img src="https://raw.githubusercontent.com/neildeo05/timevis/master/thumbnails/thumbnail_02.png">
+</p>
+
+--------------------------------------------------------------------
+
 # Timevis
 A visualization tool that allows users to view large timeseries (1-100 million timeticks)
 
