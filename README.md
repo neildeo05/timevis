@@ -37,6 +37,12 @@ When you first download the repository:
 $ ./build.sh frontend
 ```
 
+or 
+
+```console
+$ ./build.sh
+```
+
 ## Project Goals
 - Visualize arbitrary length timeseries
 - Draw the viewer's attention to strange(anomalous) points
@@ -49,6 +55,19 @@ $ ./build.sh frontend
 
 `main.py` Utilizes streamlit to display certain levels of the graph
 
+## Profiling
+If you want to profile a specific python script, you can use `src/profiler.py`
+```console
+$ ./build.sh profile "isolation_forests.py"
+    python isolation_forests.py:
+        {5.0: -7, 2.0: -10291, 1.0: 4999999}
+        [4999999, -10291]
+    
+    The process finished executing in 0:00:01.012733 seconds...
+    The process used 43 megabytes of memory
+    The total memory usage of the process was 0.53%
+```
+The ability to profile individual functions is coming soon...
 
 ## Current Accomplishments
 Right now, the tool can compress the large timeseries into multiple levels, using min/max compression. It can display a certain range of the data using user input with sliders. The UI for graphing anomalous points works as well.
@@ -70,6 +89,7 @@ Right now, the tool can compress the large timeseries into multiple levels, usin
  - [X] Add a simple performance and memory usage profiling script that can be run for quick diagnostics
  - [ ] Run the tool on a few real datasets and capture output images for each level, for a few center/radius combinations, and for anomalous points. Add these images to a document per dataset that highlights interpretations of the dataset
  - [ ] Based on available memory on the machine, recommend the best value for `g_max_value`. `g_max_value` is used to define the maximum amount of points graphed, which determines the level to be picked. Add this part to the developer/user documentation
+ - [ ] Extend the profiler to profile individual functions
  - [ ] Add Developer Documentation
 ## Nice to implement
  - [ ] Add support for graphing multiple timeseries at the same time

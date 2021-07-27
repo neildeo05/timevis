@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 key="$1"
+value="$2"
 
 if [ "$key" == "all" ]; then
     cd src/
@@ -33,8 +34,18 @@ elif [ "$key" == "detect" ]; then
     cd src/
     python detect.py
     cd ..
+elif [ "$key" == "profile" ]; then
+    cd src/
+    if [ "$value" == "" ]; then
+      echo "Unknown argument ${value}"
+      exit 1
+    fi
+    python profiler.py -f "$value"
+    cd ..
 else
-    echo "Unknown argument ${key}"
+    cd src/
+    make frontend
+    cd ..
 fi
 
 
