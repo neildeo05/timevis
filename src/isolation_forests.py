@@ -77,7 +77,7 @@ def evaluate_instance(instance,forest):
         paths.append(pathLength(instance,tree))
     return paths
 
-def find_anomalies(filepath, num_anomalies):
+def find_anomalies(filepath, num_anomalies, print_anomalies=True):
     df = []
     with open(filepath, 'r') as t:
         reader = csv.reader(t, delimiter='\n')
@@ -88,6 +88,8 @@ def find_anomalies(filepath, num_anomalies):
     for i in df:
         val = np.mean((evaluate_instance(i, iso)))
         vals[val] = i
+    if print_anomalies:
+        print(vals)
     if len(vals) < num_anomalies:
         t = (sorted(list(vals.keys())))
         return [vals[t[i]] for i in range(len(vals))]
@@ -95,3 +97,5 @@ def find_anomalies(filepath, num_anomalies):
         t = (sorted(list(vals.keys())))
         return [vals[t[i]] for i in range(num_anomalies)]
  
+if __name__ == '__main__':
+    print(find_anomalies("../source_datafiles/top500.csv", 2))
