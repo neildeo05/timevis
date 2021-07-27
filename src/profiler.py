@@ -56,6 +56,20 @@ def profile_cmd(cmd):
     print("The process used %d megabytes of memory" % total_process_memory)
     total_machine_memory = psutil.virtual_memory().total / 1024 / 1024
     print("The total memory usage of the process was %0.2f%%\033[0m" % ((total_process_memory / total_machine_memory) * 100))
-    
+
+def usage(stream):
+    fprintf(stream, "usage: python profiler.py [-fh] [file]")
 if __name__ == '__main__':
-    profile_cmd('python isolation_forests.py')
+    if len(sys.argv) < 2:
+        usage(sys.stderr)
+        sys.exit(1)
+    else:
+        if(sys.argv[1] == '-f'):
+            exec_file = sys.argv[2]
+            profile_cmd('python %s' % exec_file)
+        elif(sys.argv[1] == '-h'):
+            usage(sys.stdout)
+        else:
+            fprintf(sys.stderr, "Unknown option %s" % sys.argv[1]);
+            usage(sys.stderr)
+            sys.exit(1)
