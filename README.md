@@ -67,11 +67,10 @@ Right now, the tool can compress the large timeseries into multiple levels, usin
  - [X] Preprocess the anomalous points, and allow for a dynamic radius
  - [X] Pick a few interesting images from the task above and add to `README.md` 
  - [X] Find a way to use real timetick values on x axis in center/radius mode
- - [ ] Add a simple performance and memory usage profiling script that can be run for quick diagnostics
+ - [X] Add a simple performance and memory usage profiling script that can be run for quick diagnostics
  - [ ] Run the tool on a few real datasets and capture output images for each level, for a few center/radius combinations, and for anomalous points. Add these images to a document per dataset that highlights interpretations of the dataset
  - [ ] Based on available memory on the machine, recommend the best value for `g_max_value`. `g_max_value` is used to define the maximum amount of points graphed, which determines the level to be picked. Add this part to the developer/user documentation
  - [ ] Add Developer Documentation
- - [ ] Use os.path instead of hardcoding a path separator, to make the tool cross-platform
 ## Nice to implement
  - [ ] Add support for graphing multiple timeseries at the same time
  - [ ] Switch from streamlit to HTML5 canvas
