@@ -67,7 +67,35 @@ $ ./build.sh profile "isolation_forests.py"
     The process used 43 megabytes of memory
     The total memory usage of the process was 0.53%
 ```
-The ability to profile individual functions is coming soon...
+
+If you want to profile a specific function, you can use the `@profile_function` decorator
+
+foo.py:
+```python
+@profile_function
+def foo():
+	for i in range(100):
+		print(i)
+```
+
+```console
+$ python foo.py
+    OUTPUT:
+    foo
+    foo
+    foo
+    foo
+    foo
+    foo
+    foo
+    foo
+    foo
+    foo
+    
+    The process finished executing in 0:00:00.000075 seconds...
+    The process used 9 megabytes of memory
+    The total memory usage of the process was 0.12%
+```
 
 ## Current Accomplishments
 Right now, the tool can compress the large timeseries into multiple levels, using min/max compression. It can display a certain range of the data using user input with sliders. The UI for graphing anomalous points works as well.
@@ -87,9 +115,9 @@ Right now, the tool can compress the large timeseries into multiple levels, usin
  - [X] Pick a few interesting images from the task above and add to `README.md` 
  - [X] Find a way to use real timetick values on x axis in center/radius mode
  - [X] Add a simple performance and memory usage profiling script that can be run for quick diagnostics
+ - [X] Based on available memory on the machine, recommend the best value for `g_max_value`. `g_max_value` is used to define the maximum amount of points graphed, which determines the level to be picked. Add this part to the developer/user documentation
+ - [X] Extend the profiler to profile individual functions
  - [ ] Run the tool on a few real datasets and capture output images for each level, for a few center/radius combinations, and for anomalous points. Add these images to a document per dataset that highlights interpretations of the dataset
- - [ ] Based on available memory on the machine, recommend the best value for `g_max_value`. `g_max_value` is used to define the maximum amount of points graphed, which determines the level to be picked. Add this part to the developer/user documentation
- - [ ] Extend the profiler to profile individual functions
  - [ ] Add Developer Documentation
 ## Nice to implement
  - [ ] Add support for graphing multiple timeseries at the same time
