@@ -75,8 +75,12 @@ def center_radius(l, center_param=None, rad_param=None, idx=None):
             radius_orig = rad_param
             low = idx - radius_orig
             high = idx + radius_orig
+            # g_max_value = 5000
+            # 5000 -> low - high -> 2
+            # val <= 2499
             b = (query_range(low, high))
             timeticks = range(idx - radius_orig, idx + radius_orig + 1)
+            print(len(timeticks), len(b[0]), len(b[0]))
             df = pd.DataFrame({"x": timeticks, "y": b[0]}, columns = ['x', 'y']).set_index('x')
             st.line_chart(df)
         else:
