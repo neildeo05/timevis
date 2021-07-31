@@ -126,7 +126,10 @@ def main():
             center_radius(l, rad_param=0)
         else:
             val = (tmp.index(sub_radio_group))
-            center_radius(l, center_param=1, rad_param=int(parse("DEFAULT_RADIUS")), idx=points[val][1])
+            conf_rad_param = int(parse("DEFAULT_RADIUS"))
+            if conf_rad_param >= (g_max_value // 2):
+                raise ValueError("DEFAULT_RADIUS is greater than GRAPH_MAX_VALUE. Please change vars.conf accordingly")
+            center_radius(l, center_param=1, rad_param=, idx=points[val][1])
         
 
 

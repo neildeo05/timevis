@@ -117,12 +117,12 @@ Right now, the tool can compress the large timeseries into multiple levels, usin
  - [X] Add a simple performance and memory usage profiling script that can be run for quick diagnostics
  - [X] Based on available memory on the machine, recommend the best value for `g_max_value`. `g_max_value` is used to define the maximum amount of points graphed, which determines the level to be picked. Add this part to the developer/user documentation
  - [X] Extend the profiler to profile individual functions
- - [ ] If RADIUS\_PARAM is greater than or equal to (GRAPH\_MAX\_VALUE / 2), throw an error message
+ - [X] If RADIUS\_PARAM is greater than or equal to (GRAPH\_MAX\_VALUE / 2), throw an error message
  - [ ] Scale X axis in both range and center/radius mode to correspond to real time ticks
  - [ ] Run the tool on a few real datasets and capture output images for each level, for a few center/radius combinations, and for anomalous points. Add these images to a document per dataset that highlights interpretations of the dataset
- - [ ] Add additional anomaly detection algorithms
-## Nice to implement
+## Will Implement in the future
  - [ ] Add Developer Documentation
  - [ ] Add support for graphing multiple timeseries at the same time
  - [ ] Switch from streamlit to HTML5 canvas
+ - [ ] Add additional anomaly detection algorithms
 
