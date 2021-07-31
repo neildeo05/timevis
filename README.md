@@ -22,6 +22,8 @@ When you first download the repository:
     ```console
         $ ./build.sh all
     ```
+    
+ `./build.sh all runs the following commands:`
 	
 `install` installs all necessary packages from PyPI
 
@@ -31,16 +33,10 @@ When you first download the repository:
 
 `frontend` runs streamlit on `main.py`
 
-- After you have completed all of the preprocessing steps, running the frontend tool is as simple as 
+- To run subsequently (after initial build) run the following command: 
 
 ```console
 $ ./build.sh frontend
-```
-
-or 
-
-```console
-$ ./build.sh
 ```
 
 ## Project Goals
@@ -53,7 +49,7 @@ $ ./build.sh
 
 `preprocess.py` constructs a tree with each level containing the minimum and maximum of 4 points in the previous level, so that each level has half as many points as the previous level. It writes each level to a file in the `data/` directory. This process takes the most time.
 
-`main.py` Utilizes streamlit to display certain levels of the graph
+`main.py` Utilizes [streamlit](https://streamlit.io/) to display certain levels of the graph
 
 ## Profiling
 If you want to profile a specific python script, you can use `src/profiler.py`
