@@ -118,7 +118,8 @@ Right now, the tool can compress the large timeseries into multiple levels, usin
  - [X] Based on available memory on the machine, recommend the best value for `g_max_value`. `g_max_value` is used to define the maximum amount of points graphed, which determines the level to be picked. Add this part to the developer/user documentation
  - [X] Extend the profiler to profile individual functions
  - [X] If RADIUS\_PARAM is greater than or equal to (GRAPH\_MAX\_VALUE / 2), throw an error message
- - [ ] Scale X axis in both range and center/radius mode to correspond to real time ticks
+ - [X] Scale X axis in both range and center/radius mode to correspond to real time ticks
+ - [ ] Store preprocess files separately for min/max/all
  - [ ] Run the tool on a few real datasets and capture output images for each level, for a few center/radius combinations, and for anomalous points. Add these images to a document per dataset that highlights interpretations of the dataset
 ## Will Implement in the future
  - [ ] Add Developer Documentation
