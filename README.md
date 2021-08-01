@@ -115,12 +115,12 @@ Right now, the tool can compress the large timeseries into multiple levels, usin
  - [X] Extend the profiler to profile individual functions
  - [X] If RADIUS\_PARAM is greater than or equal to (GRAPH\_MAX\_VALUE / 2), throw an error message
  - [X] Scale X axis in both range and center/radius mode to correspond to real time ticks
+ - [ ] Create a separate subdirectory to store preprocessed files. Use naming conventions such as "filename_preprocess_options_DATE". For example, "healthy_rats_min_2021_08_01". Change main program to use appropriate preprocess files depending on `vars.conf`.
  - [ ] Run the tool on a few real datasets and capture output images for each level, for a few center/radius combinations, and for anomalous points. Add these images to a document per dataset that highlights interpretations of the dataset
- - [ ] Preprocess min/max/all files separately
  - [ ] Use os.fseek() to jump to a specific timetick in a level file.
- - [ ] Add support for graphing multiple timeseries at the same time
  - [ ] Mark anomaly point with red dot (or vertical line) to make it the focal point.
 ## Will Implement in the future
+ - [ ] Add support for graphing multiple timeseries at the same time
  - [ ] Add Developer Documentation
  - [ ] Switch from streamlit to HTML5 canvas
  - [ ] Add additional anomaly detection algorithms
