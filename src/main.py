@@ -6,7 +6,7 @@ import streamlit as st
 import sys
 from confparser import parse
 g_max_value = int(parse('GRAPH_MAX_VALUE'))
-
+fp = parse('CURRENT_READ_DIRECTORY')
 def find_level(l, h):
     global g_max_value
     delta = (h - l) + 1
@@ -21,7 +21,7 @@ def find_level(l, h):
 def query_range(l, h):
     level, low, high = find_level(l, h)
     tmp = []
-    with open("../data/level_%02d.csv" % level, 'r') as r:
+    with open(fp + "/level_%02d.csv" % level, 'r') as r:
         reader = csv.reader(r, delimiter=',')
         for i, line in enumerate(reader):
             if i < low:
@@ -34,7 +34,7 @@ def query_range(l, h):
 
 def get_no_compress_idx(a, value, center_orig):
     pos = [i for i, val in enumerate(a[0]) if val == value].index(center_orig) + 1
-    with open("../data/level_00.csv", 'r') as r:
+    with open(fp + "/level_00.csv", 'r') as r:
         reader = csv.reader(r, delimiter=',')
         count = 0
         center = 0
@@ -45,7 +45,7 @@ def get_no_compress_idx(a, value, center_orig):
                 center = i
                 count+=1
         return -1
-# TODO: Make this algorithm more efficient
+
 def center_radius(l, center_param=None, rad_param=None, idx=None):
     a = query_range(0, l)
     if(rad_param == 0):

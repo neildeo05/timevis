@@ -122,8 +122,10 @@ def decompress_node_array(data, Decomp_Arg):
 def convert_node_array_to_list(data, Decomp_Arg):
     vals = []
     for i in range(len(data)):
-        vals.append([data[i].low])
-        vals.append([data[i].high])
+        if Decomp_Arg == Decompress_Arg.MIN or Decomp_Arg == Decompress_Arg.ALL:
+            vals.append([data[i].low])
+        if Decomp_Arg == Decompress_Arg.MAX or Decomp_Arg == Decompress_Arg.ALL:
+            vals.append([data[i].high])
 
     return vals
 

@@ -1,9 +1,14 @@
 import csv
 import backend
 import os
-from confparser import parse
+from confparser import parse, setopt
 import sys
+from datetime import datetime
+from tqdm import trange
+import os.path
 arg = parse('COMPRESS_MODE')
+fullpath_for_data = parse("SOURCE_FILE").split('.')[0] + "_" + arg + "_" + datetime.today().strftime('%Y_%m_%d')
+
 if arg == 'all':
     arg = backend.Decompress_Arg.ALL
 elif arg == 'min':
@@ -26,10 +31,9 @@ def build_tree(data):
     return backend.query_select_data(data)
 
 def write(root, levels):
-    os.chdir("data")
     tmp = root
     basename = "level_%02d.csv"
-    for i in range(levels+2):
+    for i in trange(levels+2, desc = "Level:"):
         with open(basename % i, 'w') as csv_file:
             csv_writer = csv.writer(csv_file, delimiter = ',')
             csv_writer.writerows(backend.convert_node_array_to_list(tmp.layer,arg))
@@ -39,5 +43,15 @@ def write(root, levels):
 if __name__ == "__main__":
     filename = "../" + parse("SOURCE_DIR") + "/" + parse("SOURCE_FILE")
     raw_data = read_csv(filename)
+    print("READ FILE %s" % filename)
+    os.chdir("../data")
+    if not os.path.isdir(fullpath_for_data):
+        os.mkdir(fullpath_for_data)
+        
+    os.chdir(fullpath_for_data)
+    print(os.getcwd())
+
     root = build_tree(raw_data)
     write(*root)
+    os.chdir("../../src")
+    setopt("CURRENT_READ_DIRECTORY", "../data/" + fullpath_for_data)
