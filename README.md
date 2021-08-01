@@ -115,11 +115,13 @@ Right now, the tool can compress the large timeseries into multiple levels, usin
  - [X] Extend the profiler to profile individual functions
  - [X] If RADIUS\_PARAM is greater than or equal to (GRAPH\_MAX\_VALUE / 2), throw an error message
  - [X] Scale X axis in both range and center/radius mode to correspond to real time ticks
- - [ ] Store preprocess files separately for min/max/all
  - [ ] Run the tool on a few real datasets and capture output images for each level, for a few center/radius combinations, and for anomalous points. Add these images to a document per dataset that highlights interpretations of the dataset
+ - [ ] Use os.fseek() to jump to a specific timetick in a level file.
+ - [ ] Add support for graphing multiple timeseries at the same time
+ - [ ] Mark anomaly point with red dot (or vertical line) to make it the focal point.
 ## Will Implement in the future
  - [ ] Add Developer Documentation
- - [ ] Add support for graphing multiple timeseries at the same time
  - [ ] Switch from streamlit to HTML5 canvas
  - [ ] Add additional anomaly detection algorithms
+ - [ ] Try multiple window sizes to find anomalies (Report window with the highest anomaly score)
 
