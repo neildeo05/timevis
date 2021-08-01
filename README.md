@@ -116,6 +116,7 @@ Right now, the tool can compress the large timeseries into multiple levels, usin
  - [X] If RADIUS\_PARAM is greater than or equal to (GRAPH\_MAX\_VALUE / 2), throw an error message
  - [X] Scale X axis in both range and center/radius mode to correspond to real time ticks
  - [ ] Run the tool on a few real datasets and capture output images for each level, for a few center/radius combinations, and for anomalous points. Add these images to a document per dataset that highlights interpretations of the dataset
+ - [ ] Preprocess min/max/all files separately
  - [ ] Use os.fseek() to jump to a specific timetick in a level file.
  - [ ] Add support for graphing multiple timeseries at the same time
  - [ ] Mark anomaly point with red dot (or vertical line) to make it the focal point.
